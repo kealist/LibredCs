@@ -20,21 +20,21 @@ using RedPath = System.IntPtr;
 using RedSeries = System.IntPtr;
 using RedError = System.IntPtr;
 
-namespace Red
+namespace LibRed
 {
     public class Red
     {
         //Initialize/Destruct Red Runtime
         [DllImport("libRed.dll", CharSet = CharSet.Ansi,CallingConvention =CallingConvention.Cdecl)]
-        public static extern void redOpen();
+        private static extern void redOpen();
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void redClose();
+        private static extern void redClose();
 
         //Do / Call
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        public static extern RedValue redDo([MarshalAs(UnmanagedType.LPStr)] string source);
+        private static extern RedValue redDo([MarshalAs(UnmanagedType.LPStr)] string source);
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        public static extern RedValue redDoFile([MarshalAs(UnmanagedType.LPStr)] string file);
+        private static extern RedValue redDoFile([MarshalAs(UnmanagedType.LPStr)] string file);
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedValue redDoBlock(RedValue code);
         //Todo: redCall, redRoutine
@@ -156,6 +156,42 @@ namespace Red
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern void redCloseLogFile();
 
+        //Public Interface
+
+        /// <summary>
+        /// This must be called before calling Red Runtime functions
+        /// </summary>
+        public static void OpenRuntime()
+        {
+            redOpen();
+        }
+        /// <summary>
+        /// This closes the current runtime and cleans memory usage
+        /// </summary>
+        public static void CloseRuntime()
+        {
+            redClose();
+        }
+
+        /// <summary>
+        /// This evaluates a string containing Red code and returns the last Red value
+        /// </summary>
+        /// <param name="redString"></param>
+        /// <returns>A Pointer the Red value that the string returns</returns>
+        public static IntPtr Do(string redString)
+        {
+            return redDo(redString);
+        }
+
+        /// <summary>
+        /// This evaluates a string containing Red code and returns the last Red value
+        /// </summary>
+        /// <param name="filePath">The file path is formatted using Red OS-independent conventions (basically Unix-style).</param>
+        /// <returns>A Pointer the Red value that the string returns</returns>
+        public static IntPtr DoFile(string filePath)
+        {
+            return redDoFile(filePath);
+        }
 
 
 
@@ -218,8 +254,6 @@ namespace Red
             Closure,
             Port
         }
-
-
 
     }
 }
