@@ -156,6 +156,9 @@ namespace Red
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern void redCloseLogFile();
 
+
+
+
         enum ImageFormat
         {
             RGB,
