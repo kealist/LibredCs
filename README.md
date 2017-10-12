@@ -13,4 +13,4 @@ Initialize the Red runtime by calling `Red.redOpen()`.  Close it & free resource
 Run Red code as a string (`Red.redDo`) or a file (`Red.RedDoFile` - You must use Red conventions for the path of the file):
 
     Red.redDo("view [text {hello}]");  //This creates a new window with a textbox
-    redDoFile("/c/dev/red/demo.red");  //This runs the specified file
+    Red.redDoFile("/c/dev/red/demo.red");  //This runs the specified file
