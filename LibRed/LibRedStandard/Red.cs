@@ -176,7 +176,7 @@ namespace LibRed
         /// <summary>
         /// This evaluates a string containing Red code and returns the last Red value
         /// </summary>
-        /// <param name="redString"></param>
+        /// <param name="redString">A string containing Red code</param>
         /// <returns>A Pointer the Red value that the string returns</returns>
         public static IntPtr Do(string redString)
         {
