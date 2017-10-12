@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Shire.Red</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Joshua Shireman</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/kealist/LibredCs</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial Release.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+  </metadata>
+</package>
