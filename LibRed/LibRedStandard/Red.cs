@@ -19,13 +19,14 @@ using RedBlock = System.IntPtr;
 using RedPath = System.IntPtr;
 using RedSeries = System.IntPtr;
 using RedError = System.IntPtr;
+using System.Text;
 
 namespace LibRed
 {
     public class Red
     {
         //Initialize/Destruct Red Runtime
-        [DllImport("libRed.dll", CharSet = CharSet.Ansi,CallingConvention =CallingConvention.Cdecl)]
+        [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private static extern void redOpen();
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private static extern void redClose();
@@ -146,7 +147,7 @@ namespace LibRed
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedValue redHasError();
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        public static extern string redFormError();
+        public static extern IntPtr redFormError();
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern int redOpenLogWindow();
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
@@ -155,6 +156,16 @@ namespace LibRed
         public static extern void redOpenLogFile([MarshalAs(UnmanagedType.LPStr)] string name);
         [DllImport("libRed.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern void redCloseLogFile();
+
+
+        // Basic Types
+
+        public static IntPtr Unset = redUnset();
+        public static IntPtr None = redNone();
+        public static IntPtr True = redLogic(1);
+        public static IntPtr False = redLogic(0);
+
+
 
         //Public Interface
 
@@ -193,6 +204,41 @@ namespace LibRed
             return redDoFile(filePath);
         }
 
+        public static void Print(IntPtr redValue)
+        {
+            redPrint(redValue);
+        }
+
+        public static int OpenLogWindow() { return redOpenLogWindow(); }
+        public static int CloseLogWindow() { return redCloseLogWindow(); }
+
+        public static void OpenLog(string file) { redOpenLogFile(file); }
+        public static void CloseLog() { redCloseLogFile(); }
+
+        public static IntPtr HasError() { return redHasError(); }
+        public static string FormError() { return StringFromNativeUtf8(redFormError()); }
+
+
+        //Helper Functions
+
+        public static IntPtr NativeUtf8FromString(string managedString)
+        {
+            int len = Encoding.UTF8.GetByteCount(managedString);
+            byte[] buffer = new byte[len + 1];
+            Encoding.UTF8.GetBytes(managedString, 0, managedString.Length, buffer, 0);
+            IntPtr nativeUtf8 = Marshal.AllocHGlobal(buffer.Length);
+            Marshal.Copy(buffer, 0, nativeUtf8, buffer.Length);
+            return nativeUtf8;
+        }
+
+        public static string StringFromNativeUtf8(IntPtr nativeUtf8)
+        {
+            int len = 0;
+            while (Marshal.ReadByte(nativeUtf8, len) != 0) ++len;
+            byte[] buffer = new byte[len];
+            Marshal.Copy(nativeUtf8, buffer, 0, buffer.Length);
+            return Encoding.UTF8.GetString(buffer);
+        }
 
 
         enum ImageFormat
