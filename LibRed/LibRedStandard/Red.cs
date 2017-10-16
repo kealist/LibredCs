@@ -38,7 +38,13 @@ namespace LibRed
         private static extern RedValue redDoFile([MarshalAs(UnmanagedType.LPStr)] string file);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedValue redDoBlock(RedValue code);
-        //Todo: redCall, redRoutine
+        [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern RedValue redCall(RedWord code,__arglist);
+
+        //todo: red_value redRoutine(red_word name, const char* spec, void* func_ptr);
+        //[DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        //public static extern RedValue redRoutine(RedWord code,[MarshalAs(UnmanagedType.LPStr)] string spec, XXX );
+
 
         // C -> Red Types
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
@@ -69,8 +75,10 @@ namespace LibRed
         public static extern RedString redString([MarshalAs(UnmanagedType.LPStr)] string str);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedWord redWord([MarshalAs(UnmanagedType.LPStr)] string word);
-        //todo: redBlock --- public static extern RedBlock
-        //todo: redPath ---public static extern RedPath
+        [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern RedBlock redBlock(RedValue v, __arglist);
+        [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern RedPath redPath(RedValue v, __arglist);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedPath redLoadPath([MarshalAs(UnmanagedType.LPStr)] string path);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
