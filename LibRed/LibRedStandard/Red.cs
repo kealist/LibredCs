@@ -33,9 +33,9 @@ namespace LibRed
 
         //Do / Call
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        private static extern RedValue redDo([MarshalAs(UnmanagedType.LPStr)] string source);
+        private static extern RedValue redDo([MarshalAs(UnmanagedType.LPWStr)] string source);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        private static extern RedValue redDoFile([MarshalAs(UnmanagedType.LPStr)] string file);
+        private static extern RedValue redDoFile([MarshalAs(UnmanagedType.LPWStr)] string file);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedValue redDoBlock(RedValue code);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
@@ -43,12 +43,12 @@ namespace LibRed
 
         //todo: red_value redRoutine(red_word name, const char* spec, void* func_ptr);
         //[DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        //public static extern RedValue redRoutine(RedWord code,[MarshalAs(UnmanagedType.LPStr)] string spec, XXX );
+        //public static extern RedValue redRoutine(RedWord code,[MarshalAs(UnmanagedType.LPWStr)] string spec, XXX );
 
 
         // C -> Red Types
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern long redSymbol([MarshalAs(UnmanagedType.LPStr)] string word);
+        public static extern long redSymbol([MarshalAs(UnmanagedType.LPWStr)] string word);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedUnset redUnset();
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
@@ -68,19 +68,19 @@ namespace LibRed
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedTuple redTuple4(long r, long g, long b, long a);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern RedBinary redBinary([MarshalAs(UnmanagedType.LPStr)] string buffer, long bytes);
+        public static extern RedBinary redBinary([MarshalAs(UnmanagedType.LPWStr)] string buffer, long bytes);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedImage redImage(long width, long height, IntPtr buffer, long format);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern RedString redString([MarshalAs(UnmanagedType.LPStr)] string str);
+        public static extern RedString redString([MarshalAs(UnmanagedType.LPWStr)] string str);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern RedWord redWord([MarshalAs(UnmanagedType.LPStr)] string word);
+        public static extern RedWord redWord([MarshalAs(UnmanagedType.LPWStr)] string word);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedBlock redBlock(RedValue v, __arglist);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedPath redPath(RedValue v, __arglist);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern RedPath redLoadPath([MarshalAs(UnmanagedType.LPStr)] string path);
+        public static extern RedPath redLoadPath([MarshalAs(UnmanagedType.LPWStr)] string path);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern RedValue redMakeSeries(ulong type, ulong slots);
 
@@ -162,7 +162,7 @@ namespace LibRed
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern int redCloseLogWindow();
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void redOpenLogFile([MarshalAs(UnmanagedType.LPStr)] string name);
+        public static extern void redOpenLogFile([MarshalAs(UnmanagedType.LPWStr)] string name);
         [DllImport("libRed.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern void redCloseLogFile();
 
